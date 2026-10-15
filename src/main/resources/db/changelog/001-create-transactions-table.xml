@@ -34,5 +34,15 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+
+        <createIndex tableName="transactions" indexName="idx_account_from">
+            <column name="account_from"/>
+        </createIndex>
+        <createIndex tableName="transactions" indexName="idx_expense_category">
+            <column name="expense_category"/>
+        </createIndex>
+        <createIndex tableName="transactions" indexName="idx_limit_exceeded">
+            <column name="limit_exceeded"/>
+        </createIndex>
     </changeSet>
 </databaseChangeLog>

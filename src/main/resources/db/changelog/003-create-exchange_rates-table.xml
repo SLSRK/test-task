@@ -22,5 +22,15 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+
+        <createIndex tableName="exchange_rates" indexName="idx_currency_from">
+            <column name="currency_from"/>
+        </createIndex>
+        <createIndex tableName="exchange_rates" indexName="idx_currency_to">
+            <column name="currency_to"/>
+        </createIndex>
+        <createIndex tableName="exchange_rates" indexName="idx_close_date">
+            <column name="close_date"/>
+        </createIndex>
     </changeSet>
 </databaseChangeLog>

@@ -22,5 +22,12 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+
+        <createIndex tableName="limits" indexName="idx_account_from">
+            <column name="account_from"/>
+        </createIndex>
+        <createIndex tableName="limits" indexName="idx_expense_category">
+            <column name="expense_category"/>
+        </createIndex>
     </changeSet>
 </databaseChangeLog>

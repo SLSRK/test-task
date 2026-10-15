@@ -82,7 +82,7 @@ public class TrancastionServiceImpl implements TransactionService {
 
     public List<TransactionResponseDto> getAllTransactionsWithLimitExceeded() {
         return transactionRepository.findByLimitExceededTrue().stream()
-                .map(transaction -> transactionMapper.toDto(transaction))
+                .map(transactionMapper::toDto)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 }

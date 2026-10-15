@@ -50,7 +50,7 @@ public class LimitServiceImpl implements LimitService {
 
     public List<LimitResponseDto> getAllLimits(String accountFrom, Category expenseCategory) {
         return limitRepository.findByAccountFromAndExpenseCategory(accountFrom, expenseCategory).stream()
-                .map(limit -> limitMapper.toDto(limit))
+                .map(limitMapper::toDto)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 }

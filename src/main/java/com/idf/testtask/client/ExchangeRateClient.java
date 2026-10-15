@@ -20,13 +20,10 @@ public class ExchangeRateClient {
     private String exchangeRateUrl;
 
     public BigDecimal getCloseRate(Currency currencyFrom, Currency currencyTo){
-        String url = exchangeRateUrl + "/v2/rate/"
-                + currencyFrom.name().toLowerCase() + "/"
-                + currencyTo.name().toLowerCase();
-
-        System.out.println("Exchange rate URL: " + url);
         return restClient.get()
-                .uri(URI.create(url))
+                .uri(URI.create(exchangeRateUrl + "/v2/rate/"
+                        + currencyFrom.name().toLowerCase() + "/"
+                        + currencyTo.name().toLowerCase()))
                 .retrieve()
                 .body(ExchangeRateResponseDto.class).rate();
     }
