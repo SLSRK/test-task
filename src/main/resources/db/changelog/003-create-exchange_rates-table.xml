@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet id="03-exchange-rate" author="slsrk">
+        <createTable tableName="exchange_rates">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" unique="true" nullable="false"/>
+            </column>
+            <column name="currency_from" type="VARCHAR(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="currency_to" type="VARCHAR(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="close_rate" type="NUMERIC(19, 8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="close_date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createIndex tableName="exchange_rates" indexName="exchange_rates_idx_currency_from">
+            <column name="currency_from"/>
+        </createIndex>
+        <createIndex tableName="exchange_rates" indexName="exchange_rates_idx_currency_to">
+            <column name="currency_to"/>
+        </createIndex>
+        <createIndex tableName="exchange_rates" indexName="exchange_rates_idx_close_date">
+            <column name="close_date"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

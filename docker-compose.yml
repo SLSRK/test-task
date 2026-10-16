@@ -1,0 +1,44 @@
+services:
+
+  test-task:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: test-task
+    ports:
+      - "8081:8080"
+    env_file:
+      - .env
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      SPRING_REDIS_HOST: ${REDIS_HOST}
+      SPRING_REDIS_PORT: ${REDIS_PORT}
+    depends_on:
+      - test-db
+      - redis
+
+  test-db:
+    image: postgres:16
+    container_name: test_db
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - test_db_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7
+    container_name: test_redis
+    restart: always
+    ports:
+      - "6379:6379"
+
+volumes:
+  test_db_data:

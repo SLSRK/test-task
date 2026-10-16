@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet id="02-limit" author="slsrk">
+        <createTable tableName="limits">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" unique="true" nullable="false"/>
+            </column>
+            <column name="account_from" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="expense_category" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount_usd" type="DECIMAL(10, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="effective_from" type="TIMESTAMPTZ">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createIndex tableName="limits" indexName="limits_idx_account_from">
+            <column name="account_from"/>
+        </createIndex>
+        <createIndex tableName="limits" indexName="limits_idx_expense_category">
+            <column name="expense_category"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet id="01-transaction" author="slsrk">
+        <createTable tableName="transactions">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" unique="true" nullable="false"/>
+            </column>
+            <column name="account_from" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="account_to" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="currency_shortname" type="VARCHAR(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" type="DECIMAL(10, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount_usd" type="DECIMAL(10, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="expense_category" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_time" type="TIMESTAMPTZ">
+                <constraints nullable="false"/>
+            </column>
+            <column name="limit_exceeded" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="limit_id" type="BIGINT"/>
+        </createTable>
+
+        <createIndex tableName="transactions" indexName="transactions_idx_account_from">
+            <column name="account_from"/>
+        </createIndex>
+        <createIndex tableName="transactions" indexName="transactions_idx_expense_category">
+            <column name="expense_category"/>
+        </createIndex>
+        <createIndex tableName="transactions" indexName="transactions_idx_limit_exceeded">
+            <column name="limit_exceeded"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>
