@@ -1,6 +1,5 @@
 package com.idf.testtask.model.dto;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -12,7 +11,7 @@ public record TransactionResponseDto(
 
         String accountTo,
 
-        String currency,
+        String currencyShortname,
 
         BigDecimal amount,
 
@@ -22,6 +21,8 @@ public record TransactionResponseDto(
 
         LocalDateTime dateTime,
 
-        Boolean limitExceeded
+        Boolean limitExceeded,
+
+        LimitResponseDto limit
 ) {
 }

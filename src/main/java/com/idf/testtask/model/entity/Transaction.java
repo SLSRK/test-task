@@ -4,9 +4,12 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,8 +35,8 @@ public class Transaction {
     private String accountTo;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "currency", length = 3)
-    private Currency currency;
+    @Column(name = "currency_shortname", length = 3)
+    private Currency currencyShortname;
 
     @Column(name = "amount", nullable = false, precision = 19, scale = 2)
     private BigDecimal amount;
@@ -51,4 +54,8 @@ public class Transaction {
 
     @Column(name = "limit_exceeded", nullable = false)
     private Boolean limitExceeded;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "limit_id")
+    private Limit limit;
 }

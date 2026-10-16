@@ -17,7 +17,7 @@ import org.mapstruct.Mapping;
 )
 public interface TransactionMapper {
 
-    @Mapping(target = "currency", expression = "java(Currency.valueOf(transactionRequestDto.currency()))")
+    @Mapping(target = "currencyShortname", expression = "java(Currency.valueOf(transactionRequestDto.currencyShortname()))")
     @Mapping(target = "expenseCategory", expression = "java(Category.valueOf(transactionRequestDto.expenseCategory()))")
     @Mapping(target = "dateTime", expression = "java(LocalDateTime.now())")
     Transaction toEntity(TransactionRequestDto transactionRequestDto);

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,11 +41,13 @@ public class LimitServiceImpl implements LimitService {
     public Limit getCurrentLimit(String accountFrom, Category expenseCategory) {
         return limitRepository.findFirstByAccountFromAndExpenseCategoryOrderByEffectiveFromDesc(accountFrom, expenseCategory)
                 .orElseGet( () ->
-                        Limit.builder()
-                                .accountFrom(accountFrom)
-                                .expenseCategory(expenseCategory)
-                                .amountUsd(BigDecimal.valueOf(defaultLimit))
-                                .build()
+                        limitRepository.save(
+                                Limit.builder()
+                                        .accountFrom(accountFrom)
+                                        .expenseCategory(expenseCategory)
+                                        .amountUsd(BigDecimal.valueOf(defaultLimit))
+                                        .effectiveFrom(LocalDateTime.now())
+                                        .build())
                 );
     }
 

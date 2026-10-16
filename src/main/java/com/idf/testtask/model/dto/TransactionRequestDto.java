@@ -21,7 +21,7 @@ public record TransactionRequestDto(
 
         @NotBlank(message = "Currency cannot be empty")
         @Pattern(regexp = "USD|KZT|RUB",message = "Can be USD, KZT or RUB")
-        String currency,
+        String  currencyShortname,
 
         @NotNull(message = "Amount cannot be null")
         BigDecimal amount,

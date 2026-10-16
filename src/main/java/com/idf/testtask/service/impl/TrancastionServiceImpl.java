@@ -43,13 +43,13 @@ public class TrancastionServiceImpl implements TransactionService {
         }
 
         Transaction transaction = transactionMapper.toEntity(transactionRequestDto);
-        if (transaction.getCurrency().equals(Currency.USD)){
+        if (transaction.getCurrencyShortname().equals(Currency.USD)){
             transaction.setAmountUsd(transaction.getAmount());
         } else {
             transaction.setAmountUsd(
                     transaction.getAmount()
                             .multiply(exchangeRateService.getExchangeRate(
-                                    transaction.getCurrency(),
+                                    transaction.getCurrencyShortname(),
                                     Currency.USD)
                                     .getCloseRate())
                             .setScale(2, RoundingMode.HALF_UP)
@@ -71,6 +71,7 @@ public class TrancastionServiceImpl implements TransactionService {
                 transaction.getAccountFrom(),
                 transaction.getExpenseCategory());
         transaction.setLimitExceeded(totalAmount.compareTo(limit.getAmountUsd()) > 0);
+        transaction.setLimit(limit);
 
         return transactionMapper.toDto(transactionRepository.save(transaction));
     }
